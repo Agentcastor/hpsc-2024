@@ -13,9 +13,10 @@ int main(int argc, char** argv) {
   int size, rank;
   MPI_Comm_size(MPI_COMM_WORLD, &size);
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-  Body ibody[N/size], jbody[N/size];
+  int begin = rank * (N/size);
+  int end= (rank + 1 ) * (N / size)
   srand48(rank);
-  for(int i=0; i<N/size; i++) {
+  for(int i=begin; i<end; i++) {
     ibody[i].x = jbody[i].x = drand48();
     ibody[i].y = jbody[i].y = drand48();
     ibody[i].m = jbody[i].m = drand48();
