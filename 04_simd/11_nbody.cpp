@@ -3,7 +3,8 @@
 #include <cmath>
 #include <x86intrin.h>
 
-//// TO BE COMPILE WITH : g++ -mavx512f -O3 11_nbody.cpp
+//// use this compilator: g++ -mavx512f -O3 11_nbody.cpp
+// this answer was made in collaboration with Ulysse-Néo Lartigaud (student ID : 24R51513)
 int main() {
   
   const int N = 8;
