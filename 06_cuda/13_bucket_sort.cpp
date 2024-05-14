@@ -2,6 +2,17 @@
 #include <cstdlib>
 #include <vector>
 
+__global__ void bucketSort(int range, int bucket[], int key[], int offset[])
+{
+  int i = threadIdx.x;
+  for (int j = 1; j<range; j<<=1) {
+    offset[i] = bucket[i];
+    if(i>=j) bucket[i] += offset[i-j];
+  }
+
+  for (int j=0; bucket[i]>0; bucket[i]--)
+    key[j++] = i;
+}
 int main() {
   int n = 50;
   int range = 5;
@@ -12,16 +23,18 @@ int main() {
   }
   printf("\n");
 
-  std::vector<int> bucket(range); 
+  int *bucket;
+  cudaMallocManaged(&bucket, range*sizeof(int));
+  int *offset;
+  cudaMallocManaged(&offset, range*sizeof(int)); 
   for (int i=0; i<range; i++) {
     bucket[i] = 0;
   }
   for (int i=0; i<n; i++) {
     bucket[key[i]]++;
   }
-  for (int i=0, j=0; i<range; i++) {
-    for (; bucket[i]>0; bucket[i]--) {
-      key[j++] = i;
+  bucketSort<<<1, n>>>(range, bucket, key, offset);
+  cudaDeviceSynchronize();
     }
   }
 
@@ -29,4 +42,6 @@ int main() {
     printf("%d ",key[i]);
   }
   printf("\n");
+  cudaFree(key);
+  cudaFree(bucket);
 }
