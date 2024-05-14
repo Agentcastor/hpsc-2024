@@ -1,5 +1,6 @@
 Name: VINCENT THEO
 ID:24R51516
+(mpi)
 I Tried the exercice 3, but I may have broke the algorithm; it's not doing what it's supposed to anymore.
 # hpc_lecture
 
