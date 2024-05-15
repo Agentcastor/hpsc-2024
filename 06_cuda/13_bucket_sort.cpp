@@ -2,6 +2,11 @@
 #include <cstdlib>
 #include <vector>
 
+//Tsubame don't want to compile my algorithm, I don't know why
+//But after a lot of research,I didn't found out
+//So I don't know if that work, it's just a supposition of code
+// it says "missing operator"
+
 __global__ void bucketSort(int range, int bucket[], int key[], int offset[])
 {
   int i = threadIdx.x;
